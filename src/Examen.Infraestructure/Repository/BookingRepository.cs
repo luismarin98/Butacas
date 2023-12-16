@@ -25,13 +25,24 @@ namespace Examen.Infraestructure.Repository
         {
             try
             {
-                var response = await _context.BookingEntities.FirstOrDefaultAsync(x => x.IdBookin == book.IdBookin);
-                if (response == null)
+                var resCustomer = await _context.CustomerEntities.FirstOrDefaultAsync(x => x.IdCustomer == book.IdCustomer);
+                var resBill = await _context.BillboardEntities.FirstOrDefaultAsync(x => x.IdBillboard == book.IdBillboard);
+                var resSeat = await _context.SeatEntities.FirstOrDefaultAsync(x => x.IdSeat ==  book.IdSeat);
+
+                if(resCustomer != null && resBill != null && resSeat != null)
                 {
-                    var mapper = _mapper.Map<BookingEntity>(book);
-                    _context.BookingEntities.Add(mapper);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    var response = await _context.BookingEntities.FirstOrDefaultAsync(x => x.IdBookin == book.IdBookin);
+                    if (response == null)
+                    {
+                        var mapper = _mapper.Map<BookingEntity>(book);
+                        _context.BookingEntities.Add(mapper);
+                        await _context.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {

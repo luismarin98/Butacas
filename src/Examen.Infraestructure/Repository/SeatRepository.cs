@@ -44,26 +44,21 @@ namespace Examen.Infraestructure.Repository
         {
             var roomExists = await _context.RoomEntities.AnyAsync(r => r.IdRoom == seat.IdRoom);
 
-            if (!roomExists)
+            if (roomExists)
             {
-                // La habitación asociada no existe, maneja este escenario según sea necesario
-                return false;
-            }
+                var existingSeat = await _context.SeatEntities.FirstOrDefaultAsync(x => x.IdSeat == seat.IdSeat);
 
-            var existingSeat = await _context.SeatEntities.FirstOrDefaultAsync(x => x.IdSeat == seat.IdSeat);
-
-            if (existingSeat == null)
-            {
-                var newSeat = new SeatEntity
+                if (existingSeat == null)
                 {
-                    // Asigna otras propiedades de Seat a la nueva SeatEntity
-                    IdRoom = seat.IdRoom, // Asegúrate de que este valor exista en RoomEntity
-                                          // Otras asignaciones de propiedades aquí
-                };
-
-                _context.SeatEntities.Add(newSeat);
-                await _context.SaveChangesAsync();
-                return true;
+                    var mapper = _mapper.Map<SeatEntity>(seat);
+                    _context.SeatEntities.Add(mapper);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
