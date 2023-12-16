@@ -16,6 +16,13 @@ namespace Examen.Api.Controllers
             _billboard = billboard;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Get()
+        {
+            var response = await _billboard.GetBillboard();
+            if (response != null) { return Ok(response); } else { return BadRequest(response); }
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] BillboardDTO billboard)
         {
@@ -35,13 +42,6 @@ namespace Examen.Api.Controllers
         {
             var response = await _billboard.DeleteBillboard(idBillboard);
             if (response) { return Ok(response); } else { return BadRequest(response); }
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> Get()
-        {
-            var response = await _billboard.GetBillboard();
-            if (response != null) { return Ok(response); } else { return BadRequest(response); }
         }
     }
 }

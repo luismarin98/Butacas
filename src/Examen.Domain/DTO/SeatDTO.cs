@@ -15,7 +15,5 @@ namespace Examen.Domain.DTO
         public string Number { get; set; } = null!;
 
         public int RowNumber { get; set; }
-
-        public virtual ICollection<BookingEntity> BookingEntities { get; set; } = new List<BookingEntity>();
     }
 }

@@ -14,8 +14,5 @@ namespace Examen.Domain.DTO
 
         public int Number { get; set; }
 
-        public virtual ICollection<BillboardEntity> BillboardEntities { get; set; } = new List<BillboardEntity>();
-
-        public virtual ICollection<SeatEntity> SeatEntities { get; set; } = new List<SeatEntity>();
     }
 }

@@ -16,10 +16,17 @@ namespace Examen.Api.Controllers
             _customer = customer;
         }
 
-        [HttpDelete("{idCustomer:int}")]
-        public async Task<ActionResult> Delete(int idCustomer)
+        [HttpGet]
+        public async Task<ActionResult> Get()
         {
-            var response = await _customer.DeleteCustomer(idCustomer);
+            var response = await _customer.GetCustomers();
+            if (response == null) { return BadRequest(response); } else { return Ok(response); }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] CustomerDTO customer)
+        {
+            var response = await _customer.PostCustomer(customer);
             if (response) { return BadRequest(response); } else { return Ok(response); }
         }
 
@@ -30,18 +37,11 @@ namespace Examen.Api.Controllers
             if (response) { return BadRequest(response); } else { return Ok(response); }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CustomerDTO customer)
+        [HttpDelete("{idCustomer:int}")]
+        public async Task<ActionResult> Delete(int idCustomer)
         {
-            var response = await _customer.PostCustomer(customer);
+            var response = await _customer.DeleteCustomer(idCustomer);
             if (response) { return BadRequest(response); } else { return Ok(response); }
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> Get()
-        {
-            var response = await _customer.GetCustomers();
-            if (response == null) { return BadRequest(response); } else { return Ok(response); }
         }
     }
 }

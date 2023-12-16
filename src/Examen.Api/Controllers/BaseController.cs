@@ -23,17 +23,17 @@ namespace Examen.Api.Controllers
             if (response == null) { return BadRequest(response); } else { return Ok(response); }
         }
 
-        [HttpPut("{idBase:int}")]
-        public async Task<ActionResult> Put(int idBase, [FromBody] BaseDTO based)
-        {
-            var response = await _base.PutCBase(idBase, based);
-            if (response) { return BadRequest(response); } else { return Ok(response); }
-        }
-
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] BaseDTO based)
         {
             var response = await _base.PostBase(based);
+            if (response) { return BadRequest(response); } else { return Ok(response); }
+        }
+
+        [HttpPut("{idBase:int}")]
+        public async Task<ActionResult> Put(int idBase, [FromBody] BaseDTO based)
+        {
+            var response = await _base.PutCBase(idBase, based);
             if (response) { return BadRequest(response); } else { return Ok(response); }
         }
 

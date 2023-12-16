@@ -42,24 +42,32 @@ namespace Examen.Infraestructure.Repository
 
         public async Task<bool> PostSeat(SeatDTO seat)
         {
-            try
+            var roomExists = await _context.RoomEntities.AnyAsync(r => r.IdRoom == seat.IdRoom);
+
+            if (!roomExists)
             {
-                var response = await _context.SeatEntities.FirstOrDefaultAsync(x => x.IdSeat == seat.IdSeat);
-                if(response == null)
-                {
-                    var mapper = _mapper.Map<SeatEntity>(seat);
-                    _context.SeatEntities.Add(mapper);
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                // La habitación asociada no existe, maneja este escenario según sea necesario
+                return false;
             }
-            catch (Exception ex)
+
+            var existingSeat = await _context.SeatEntities.FirstOrDefaultAsync(x => x.IdSeat == seat.IdSeat);
+
+            if (existingSeat == null)
             {
-                throw new NotFiniteNumberException(ex.Message);
+                var newSeat = new SeatEntity
+                {
+                    // Asigna otras propiedades de Seat a la nueva SeatEntity
+                    IdRoom = seat.IdRoom, // Asegúrate de que este valor exista en RoomEntity
+                                          // Otras asignaciones de propiedades aquí
+                };
+
+                _context.SeatEntities.Add(newSeat);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

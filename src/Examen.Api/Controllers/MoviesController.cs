@@ -16,18 +16,18 @@ namespace Examen.Api.Controllers
             _movie = movie;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Get()
+        {
+            var response = await _movie.GetMovies();
+            if (response == null) { return Ok(response); } else { return BadRequest(); }
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] MovieDTO movie)
         {
             var response = await _movie.PostMovie(movie);
             if(response) {  return Ok(response); } else {  return BadRequest(); }
-        }
-
-        [HttpDelete("{idMovie:int}")]
-        public async Task<ActionResult> Delete(int idMovie)
-        {
-            var response = await _movie.DeleteMovie(idMovie);
-            if (response) { return Ok(response); } else { return BadRequest(); }
         }
 
         [HttpPut("{idMovie:int}")]
@@ -37,11 +37,11 @@ namespace Examen.Api.Controllers
             if (response) { return Ok(response); } else { return BadRequest(); }
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Get()
+        [HttpDelete("{idMovie:int}")]
+        public async Task<ActionResult> Delete(int idMovie)
         {
-            var response = await _movie.GetMovies();
-            if (response == null) { return Ok(response); } else { return BadRequest(); }
+            var response = await _movie.DeleteMovie(idMovie);
+            if (response) { return Ok(response); } else { return BadRequest(); }
         }
     }
 }

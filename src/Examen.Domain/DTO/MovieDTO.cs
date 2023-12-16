@@ -18,6 +18,5 @@ namespace Examen.Domain.DTO
 
         public int LengthMinutes { get; set; }
 
-        public virtual ICollection<BillboardEntity> BillboardEntities { get; set; } = new List<BillboardEntity>();
     }
 }
