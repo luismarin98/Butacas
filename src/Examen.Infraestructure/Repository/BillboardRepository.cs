@@ -70,13 +70,23 @@ namespace Examen.Infraestructure.Repository
         {
             try
             {
-                var response = await _context.BillboardEntities.FirstOrDefaultAsync(x => x.IdBillboard == billboard.IdBillboard);
-                if (response == null)
+                var resMovie = await _context.MovieEntities.FirstOrDefaultAsync(x => x.IdMovie == billboard.IdMovie);
+                var resRoom = await _context.RoomEntities.FirstOrDefaultAsync(x => x.IdRoom == billboard.IdRoom);
+
+                if(resMovie != null && resRoom != null)
                 {
-                    var mapper = _mapper.Map<BillboardEntity>(billboard);
-                    _context.BillboardEntities.Add(mapper);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    var response = await _context.BillboardEntities.FirstOrDefaultAsync(x => x.IdBillboard == billboard.IdBillboard);
+                    if (response == null)
+                    {
+                        var mapper = _mapper.Map<BillboardEntity>(billboard);
+                        _context.BillboardEntities.Add(mapper);
+                        await _context.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
