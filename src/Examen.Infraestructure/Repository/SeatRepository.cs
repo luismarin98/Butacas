@@ -29,7 +29,7 @@ namespace Examen.Infraestructure.Repository
                 var response = await _context.SeatEntities.Include(x => x.BookingEntities).ToListAsync();
                 foreach (var item in response)
                 {
-                    var mapper = _mapper.Map<SeatDTO>(response);
+                    var mapper = _mapper.Map<SeatDTO>(item);
                     seats.Add(mapper);
                 }
                 return seats;

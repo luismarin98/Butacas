@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Examen.Infraestructure.Mapper
 {
-    internal class MapperServices : Profile
+    public class MapperServices : Profile
     {
         public MapperServices() 
         {
