@@ -101,14 +101,23 @@ namespace Examen.Infraestructure.Repository
                 }
                 else
                 {
+                    var relatedSeats = await _context.SeatEntities.Where(s => s.IdRoom == idRoom).ToListAsync();
+                    _context.SeatEntities.RemoveRange(relatedSeats);
+
                     _context.RoomEntities.Remove(response);
                     await _context.SaveChangesAsync();
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                throw new NotFiniteNumberException(ex.Message);
+                var innerException = ex.InnerException;
+                while (innerException != null)
+                {
+                    Console.WriteLine(innerException.Message);
+                    innerException = innerException.InnerException;
+                }
+                return false;
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Examen.Api.Controllers
         public async Task<ActionResult> Get()
         {
             var response = await _movie.GetMovies();
-            if (response == null) { return Ok(response); } else { return BadRequest(); }
+            return Ok(response);
         }
 
         [HttpPost]

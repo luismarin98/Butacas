@@ -39,7 +39,7 @@ namespace Examen.Infraestructure.Repository
                     response.Name = mapper.Name;
                     response.LengthMinutes = mapper.LengthMinutes;
 
-                    _context.MovieEntities.Remove(mapper);
+                    _context.MovieEntities.Update(response);
                     await _context.SaveChangesAsync();
                     return true;
                 }
