@@ -63,8 +63,7 @@ namespace Examen.Infraestructure.Repository
             }
         }
 
-
-        public async Task<bool> PutRooom(int idRoom, RoomDTO room)
+        public async Task<bool> PutRoom(int idRoom, RoomDTO room)
         {
             try
             {

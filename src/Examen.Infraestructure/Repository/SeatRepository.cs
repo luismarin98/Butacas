@@ -51,6 +51,7 @@ namespace Examen.Infraestructure.Repository
                 if (existingSeat == null)
                 {
                     var mapper = _mapper.Map<SeatEntity>(seat);
+
                     _context.SeatEntities.Add(mapper);
                     await _context.SaveChangesAsync();
                     return true;

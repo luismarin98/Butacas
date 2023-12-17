@@ -20,28 +20,28 @@ namespace Examen.Api.Controllers
         public async Task<ActionResult> Get()
         {
             var response = await _seat.GetSeat();
-            if (response == null) { return BadRequest(response); } else { return Ok(response); }
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] SeatDTO seat)
+        public async Task<ActionResult> Post(SeatDTO seat)
         {
             var response = await _seat.PostSeat(seat);
-            if(response) { return Ok(response); } else { return BadRequest(response);  }
+            return Ok(response);
         }
 
-        [HttpPut("{idSeat:int}")]
-        public async Task<ActionResult> Put([FromBody] SeatDTO seat, int idSeat)
+        [HttpPut]
+        public async Task<ActionResult> Put(int idSeat, SeatDTO seat)
         {
             var response = await _seat.PutSeat(seat, idSeat);
-            if (response) { return Ok(response); } else { return BadRequest(response); }
+            return Ok(response);
         }
 
-        [HttpDelete("{idSeat:int}")]
+        [HttpDelete]
         public async Task<ActionResult> Delete(int idSeat)
         {
             var response = await _seat.DeleteSeat(idSeat);
-            if (response) { return Ok(response); } else { return BadRequest(response); }
+            return Ok(response);
         }
     }
 }

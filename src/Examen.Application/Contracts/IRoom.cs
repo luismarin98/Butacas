@@ -13,7 +13,7 @@ namespace Examen.Application.Contracts
 
         Task<bool> PostRoom(RoomDTO room);
 
-        Task<bool> PutRooom(int idRoom, RoomDTO room);
+        Task<bool> PutRoom(int idRoom, RoomDTO room);
 
         Task<bool> DeleteRoom(int idRoom);
     }
