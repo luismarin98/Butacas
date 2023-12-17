@@ -26,17 +26,27 @@ namespace Examen.Infraestructure.Repository
             try
             {
                 var response = await _context.CustomerEntities.FirstOrDefaultAsync(x => x.IdCustomer == idCustomer);
+
                 if (response == null)
                 {
-                    return false;
+                    return false; // El cliente no existe
                 }
                 else
                 {
-                    _context.CustomerEntities.RemoveRange(response);
+                    var hasBookings = _context.BookingEntities.Any(b => b.IdCustomer == idCustomer);
+
+                    if (hasBookings)
+                    {
+                        // Eliminar al cliente y todas las reservas asociadas
+                        var bookingsToDelete = _context.BookingEntities.Where(b => b.IdCustomer == idCustomer);
+                        _context.BookingEntities.RemoveRange(bookingsToDelete);
+                    }
+
+                    // Siempre se elimina al cliente, ya sea que tenga reservas o no
+                    _context.CustomerEntities.Remove(response);
                     await _context.SaveChangesAsync();
                     return true;
                 }
-                
             }
             catch (Exception ex)
             {
