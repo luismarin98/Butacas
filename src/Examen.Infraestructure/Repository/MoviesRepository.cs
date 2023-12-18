@@ -26,14 +26,10 @@ namespace Examen.Infraestructure.Repository
             try
             {
                 var response = await _context.MovieEntities.FirstOrDefaultAsync(x => x.IdMovie == idMovie);
-                if (response == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    var mapper = _mapper.Map<MovieEntity>(movieDTO);
+                var mapper = _mapper.Map<MovieEntity>(movieDTO);
 
+                if (response != null)
+                {
                     response.AllowedAge = mapper.AllowedAge;
                     response.MovieGenreEnum = mapper.MovieGenreEnum;
                     response.Name = mapper.Name;
@@ -42,6 +38,11 @@ namespace Examen.Infraestructure.Repository
                     _context.MovieEntities.Update(response);
                     await _context.SaveChangesAsync();
                     return true;
+                }
+                else
+                {
+
+                    return false;
                 }
             }
             catch (Exception ex)
