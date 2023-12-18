@@ -9,7 +9,7 @@ namespace Examen.Application.Contracts
 {
     public interface ICustomer
     {
-        Task<ICollection<CustomerDTO>> GetCustomers();
+        Task<ICollection<CustomerEntity>> GetCustomers();
 
         Task<bool> PostCustomer(CustomerDTO customer);
 

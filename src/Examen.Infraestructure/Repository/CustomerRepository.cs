@@ -107,16 +107,16 @@ namespace Examen.Infraestructure.Repository
             }
         }
 
-        public async Task<ICollection<CustomerDTO>> GetCustomers()
+        public async Task<ICollection<CustomerEntity>> GetCustomers()
         {
             try
             {
-                ICollection<CustomerDTO> customers = new List<CustomerDTO>();
+                ICollection<CustomerEntity> customers = new List<CustomerEntity>();
                 var response = await _context.CustomerEntities.Include(x => x.BookingEntities).ToListAsync();
 
                 foreach (var customer in response)
                 {
-                    var mapper = _mapper.Map<CustomerDTO>(customer);
+                    var mapper = _mapper.Map<CustomerEntity>(customer);
                     customers.Add(mapper);
                 }
 
