@@ -16,8 +16,8 @@ namespace Examen.Domain.DTO
 
         public DateTime Date { get; set; }
 
-        public required string StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
-        public required string EndTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }
