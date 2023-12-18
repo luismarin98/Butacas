@@ -95,15 +95,15 @@ namespace Examen.Infraestructure.Repository
             }
         }
 
-        public async Task<ICollection<MovieDTO>> GetMovies()
+        public async Task<ICollection<MovieEntity>> GetMovies()
         {
             try
             {
-                ICollection<MovieDTO> movies = new List<MovieDTO>();
+                ICollection<MovieEntity> movies = new List<MovieEntity>();
                 var response = await _context.MovieEntities.ToListAsync();
                 foreach (var movie in response)
                 {
-                    var mapper = _mapper.Map<MovieDTO>(movie);
+                    var mapper = _mapper.Map<MovieEntity>(movie);
                     movies.Add(mapper);
                 }
                 return movies;

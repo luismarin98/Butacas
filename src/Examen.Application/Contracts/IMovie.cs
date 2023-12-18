@@ -15,6 +15,6 @@ namespace Examen.Application.Contracts
 
         Task<bool> DeleteMovie(int idMovie);
 
-        Task<ICollection<MovieDTO>> GetMovies();
+        Task<ICollection<MovieEntity>> GetMovies();
     }
 }

@@ -72,13 +72,10 @@ namespace Examen.Infraestructure.Repository
             try
             {
                 var response = await _context.SeatEntities.FirstOrDefaultAsync(x => x.IdSeat == idSeat);
-                if (response == null)
+                var mapper = _mapper.Map<SeatEntity>(seat);
+
+                if (response != null)
                 {
-                    return false;
-                }
-                else
-                {
-                    var mapper = _mapper.Map<SeatEntity>(seat);
 
                     response.Number = mapper.Number;
                     response.RowNumber = mapper.RowNumber;
@@ -86,6 +83,11 @@ namespace Examen.Infraestructure.Repository
                     _context.SeatEntities.Update(response);
                     await _context.SaveChangesAsync();
                     return true;
+                }
+                else
+                {
+
+                    return false;
                 }
             }
             catch (Exception ex)

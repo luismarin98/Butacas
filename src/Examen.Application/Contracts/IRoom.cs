@@ -9,7 +9,7 @@ namespace Examen.Application.Contracts
 {
     public interface IRoom
     {
-        Task<ICollection<RoomDTO>> GetRooms();
+        Task<ICollection<RoomEntity>> GetRooms();
 
         Task<bool> PostRoom(RoomDTO room);
 

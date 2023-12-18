@@ -30,14 +30,14 @@ namespace Examen.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut("{idSeat:int}")]
         public async Task<ActionResult> Put(int idSeat, SeatDTO seat)
         {
             var response = await _seat.PutSeat(seat, idSeat);
             return Ok(response);
         }
 
-        [HttpDelete]
+        [HttpDelete("{idSeat:int}")]
         public async Task<ActionResult> Delete(int idSeat)
         {
             var response = await _seat.DeleteSeat(idSeat);

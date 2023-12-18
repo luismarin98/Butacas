@@ -21,15 +21,15 @@ namespace Examen.Infraestructure.Repository
             _mapper = mapper;
         }
 
-        public async Task<ICollection<RoomDTO>> GetRooms()
+        public async Task<ICollection<RoomEntity>> GetRooms()
         {
             try
             {
-                ICollection<RoomDTO> rooms = new List<RoomDTO>();
-                var response = await _context.RoomEntities.Include(x => x.BillboardEntities).ToListAsync();
+                ICollection<RoomEntity> rooms = new List<RoomEntity>();
+                var response = await _context.RoomEntities.Include(x => x.BillboardEntities).Include(x => x.SeatEntities).ToListAsync();
                 foreach (var entity in response)
                 {
-                    var mapper = _mapper.Map<RoomDTO>(entity);
+                    var mapper = _mapper.Map<RoomEntity>(entity);
                     rooms.Add(mapper);
                 }
                 return rooms;
